@@ -1,47 +1,82 @@
 #include <iostream>
 #include<string>
+#include <fstream>
+#include<vector>
 #include "BigInteger.h"
 using namespace std;
 
 int main() {
 	BigInteger s;
-	//cout << "number of test cases : \n";
-	//int x; cin >> x;
-	/*string st1;
-	string st2;*/
-	//for (int i = 0; i < x; i++){
-	//	cout << "Enter the two big integers:\n";
-	//	cin >> st1 >> st2;
-	//	//cout << s.add(st1, st2) << endl;
- //    	//cout << s.subtracte(st1, st2) << endl;
+	ofstream Add;
+	ofstream Subtract;
+	ofstream Multiply;
+	Add.open("Add.txt", ios::app);
+	Subtract.open("Subtract.txt", ios::app);
+	Multiply.open("Multiply.txt", ios::app);
 
-	//	if (st1.size() % 2 != 0 && st1.size() != 1){
-	//		st1 = '0' + st1;
-	//	}
-	//	if (st2.size() % 2 != 0 && st2.size() != 1){
-	//		st2 = '0' + st2;
-	//	}
-	//	cout << "Result :\n";
-	//	cout << s.multiply(st1, st2) << endl;
-	//}
-	string st1 = "12";
-	string st2 = "12";
+	ifstream AddFile;
+	ifstream SubtractFile;
+	ifstream MultiplyFile;
+	string str;
+	vector<string> file;
 
-	string st3 = "23606766456";
-	string st4 = "1537983";
+	////////////////////// ADD
+	AddFile.open("AddTestCases.txt",ios::in);
+
+	while (getline(AddFile, str)) {
+		if (str!="")
+		file.push_back(str);
+	}
+	AddFile.close();
+
+
+	int index = 1;
+	for (int i = 0; i < stoi(file[0]); i++){
+		Add << s.add(file[index], file[index+1]) << endl << endl;
+		index += 2;
+	}
+	file.clear();
+	/////////////////////////////
+
+	//////////////////////////SUB
+	SubtractFile.open("SubtractTestCases.txt", ios::in);
+
+	while (getline(SubtractFile, str)) {
+		if (str != "")
+			file.push_back(str);
+	}
+	SubtractFile.close();
+
+
+	 index = 1;
+	for (int i = 0; i < stoi(file[0]); i++){
+		Subtract << s.subtracte(file[index], file[index + 1]) << endl << endl;
+		index += 2;
+	}
+
+	file.clear();
+	///////////////////////////
+
+	/////////////////////Multiply
+	MultiplyFile.open("MultiplyTestCases.txt", ios::in);
+
+	while (getline(MultiplyFile, str)) {
+		if (str != "")
+			file.push_back(str);
+	}
+	MultiplyFile.close();
+
+
+	index = 1;
+	for (int i = 0; i < stoi(file[0]); i++){
+		Multiply << s.multiply(file[index], file[index + 1]) << endl << endl;
+		index += 2;
+	}
+
+	file.clear();
+	/////////////////////////
+
 	
-	string st5 = "301174256660595384532197942652815288956047581636";
-	string st6 = "377773935827991229645029714898969028";
-
-	string st7 = "1242468682113840180763850624340867898830637122775434796573473991466933960634085363735808574823872230131509619596260435331836866582052453403290874467870290043697815376935298110895904163169442926407335197820883439691250684070655002714487685888";
-	string st8 = "417545487977981564551173186152102228498479694796653351848954185997611243506278579601980980219484255929864359810447039931";
-	
-	string st9 = "4746065774778736313991013446451762823551152230084842578766104765264199110147300822155702630456369808871508856166675242939783205225636134925618947132215173403355326845258208441126939944538594171280818779612461574891270164910667873484642585292515446565217074728006197739879363128442085702970944395693804734170707191774160806830620562064062100403812906395684974968";
-	string st10 = "1069316615549487026619022949768081235480483137805541651493147788536900481192180243486299495384378377884835399139944321508382197074480783287001843599098432863354215897022904829506300359345726175676489118945707291366438179064337272356680380792";
-	cout << s.subtracte(st1, st2) << endl << endl << s.subtracte(st3,st4) << endl << endl << s.subtracte(st5,st6) << endl << endl << s.subtracte(st7,st8) << endl << endl << s.subtracte(st9,st10) << endl;
-
-	
-	//cout << s.multiply(st1, st2)<<endl;
 
 	return 0;
 }
