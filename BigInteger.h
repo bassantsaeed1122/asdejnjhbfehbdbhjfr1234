@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <utility>
+
 using namespace std;
 class BigInteger
 {
@@ -11,6 +13,11 @@ public:
 	string subtracte(string, string);
 	string add(string, string);
 	string stpow(string, int);
+	bool smaller(string , string );
+	pair<string, string>divide(string , string );
+	string ModOfPower(string, string, string);
+
+
 	BigInteger();
 	~BigInteger();
 };
