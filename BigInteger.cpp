@@ -106,7 +106,6 @@ string BigInteger::ModOfPower(string B, string P, string M)
 
 string BigInteger::subtracte(string str1, string str2) {
 	int sub;
-	int count = 0;
 	string result = "";
 	int n = equalize(str1, str2);
 	int carry = 0;
@@ -122,12 +121,9 @@ string BigInteger::subtracte(string str1, string str2) {
 			carry = 0;
 		}
 		if (sub == 0)
-			count++;
 		result.push_back(sub + '0');
 
 	}
-	if (count == n)
-		return(result = 0 + '0');
 	
 	
 	reverse(result.begin(), result.end());
