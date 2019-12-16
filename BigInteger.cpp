@@ -1,6 +1,7 @@
 #include "BigInteger.h"
 #include<string>
 #include<sstream>
+#include <utility>
 #include<cmath>
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
@@ -9,6 +10,87 @@ using namespace std;
 BigInteger::BigInteger()
 {
 }
+
+
+
+
+bool BigInteger::smaller(string s1, string s2){// if s1 is smaller than s2
+	int index = 0;
+	if (s1.size() < s2.size()){
+		return true;
+	}
+	if (s1.size()> s2.size()){
+		return false;
+	}
+
+	while (index < s2.size()){
+		if (s1[index] - '0'<s2[index] - '0'){
+			return true;
+		}
+		if (s1[index] - '0' == s2[index] - '0'){
+			index++;
+			continue;
+		}
+		if (s1[index] - '0'>s2[index] - '0'){
+			return false;
+		}
+	}
+	return false;
+
+}
+
+
+
+pair<string, string>BigInteger::divide(string a, string b)
+{
+	if (smaller(a, b)) {
+		pair<string, string> tmp;
+		tmp.first = '0';
+		tmp.second = a;
+		return tmp;
+	}
+	string ADD = add(b, b);
+	pair<string, string> p = divide(a, ADD);
+	string q = p.first;
+	string r = p.second;
+
+	string ADD2 = add(p.first, p.first);
+	p.first = ADD2;
+
+	if (smaller(r, b))
+		return p;
+
+	else {
+		p.first = add(p.first, "1");
+		p.second = subtracte(p.second, b);
+		return p;
+	}
+
+}
+
+
+
+string BigInteger::ModOfPower(string B, string P, string M)
+{
+	//    POWER-A-NUMBER(A, N)
+	if (P[0] == '1')
+		return divide(B, M).second;
+	if (smaller(P , "1"))
+	{
+		return divide("1", M).second;
+	}
+	string pow = ModOfPower(B, divide(P, "2").first, M);
+	if (divide(P, "2").second[0] != '0')
+		return divide(multiply(multiply(pow , pow) , B), M).second;
+	else
+		return divide(multiply(pow , pow), M).second;
+
+	//return 0;
+}
+
+
+
+
 
 
 string BigInteger::subtracte(string str1, string str2) {
@@ -40,6 +122,7 @@ string BigInteger::subtracte(string str1, string str2) {
 	reverse(result.begin(), result.end());
 	return result;
 }
+
 
 string BigInteger::add(string str1, string str2) {
 	int carry = 0;
@@ -98,8 +181,6 @@ string BigInteger::multiply(string number1, string number2){
 	string sub1;
 	string nover2pad;
 	string addfinal;
-
-
 
 	npad = stpow(m2, 2 * (n - (n / 2)));
 	sub1 = subtracte(z, add(m1, m2));
