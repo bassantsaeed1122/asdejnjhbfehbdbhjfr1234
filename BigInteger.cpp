@@ -108,7 +108,6 @@ string BigInteger::subtracte(string str1, string str2) {
 	int sub;
 	string result = "";
 	int n = equalize(str1, str2);
-	int carry = 0;
 	for (int i = n - 1; i >= 0; i--) {
 
 		sub = (str1[i] - '0') - (str2[i] - '0') - carry;
