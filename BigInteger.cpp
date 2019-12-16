@@ -72,20 +72,31 @@ pair<string, string>BigInteger::divide(string a, string b)
 
 string BigInteger::ModOfPower(string B, string P, string M)
 {
-	//    POWER-A-NUMBER(A, N)
-	if (P[0] == '1')
-		return divide(B, M).second;
-	if (smaller(P , "1"))
-	{
-		return divide("1", M).second;
-	}
-	string pow = ModOfPower(B, divide(P, "2").first, M);
-	if (divide(P, "2").second[0] != '0')
-		return divide(multiply(multiply(pow , pow) , B), M).second;
-	else
-		return divide(multiply(pow , pow), M).second;
+	
+		//    POWER-A-NUMBER(A, N)
+		if (P.size() == 1 && P[0] == '1')
+			//return B%M;
 
-	//return 0;
+			return divide(B, M).second;
+		if (P.size() == 1 && P[0] == '0')
+		{
+			//return 1%M;
+			return divide("1", M).second;
+
+		}
+		string pow = ModOfPower(B, divide(P, "2").first, M);
+		string tmp = divide(P, "2").second;
+		string powxpow = multiply(pow, pow);
+		if (tmp.size() == 1 && tmp[0] != '0')
+			//return (pow*pow*B)%M;
+
+			return divide(multiply(powxpow, B), M).second;
+		else
+			//return (pow*pow)%M;
+			return divide(powxpow, M).second;
+
+		//return 0;
+	
 }
 
 
