@@ -128,10 +128,10 @@ string BigInteger::subtracte(string str1, string str2) {
 	}
 	if (count == n)
 		return(result = 0 + '0');
-	if (result[n - 1] == '0')
-		result.erase(n - 1);
+	
+	
 	reverse(result.begin(), result.end());
-	return result;
+	return result.erase(0, min(result.find_first_not_of('0'), result.size() - 1));
 }
 
 
