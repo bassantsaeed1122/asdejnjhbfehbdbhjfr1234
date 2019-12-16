@@ -120,7 +120,6 @@ string BigInteger::subtracte(string str1, string str2) {
 		else {
 			carry = 0;
 		}
-		if (sub == 0)
 		result.push_back(sub + '0');
 
 	}
