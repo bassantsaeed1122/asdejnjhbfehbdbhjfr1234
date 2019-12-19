@@ -74,23 +74,25 @@ pair<string, string>BigInteger::divide(string a, string b)
 string BigInteger::ModOfPower(string B, string P, string M)
 {
 	
-		if (P.size() == 1 && P[0] == '1')
-
-			return divide(B, M).second;
-		if (P.size() == 1 && P[0] == '0')
-		{
-			return divide("1", M).second;
-
-		}
-		string pow = ModOfPower(B, divide(P, "2").first, M);
-		string tmp = divide(P, "2").second;
+	if (P.size() == 1 && P[0] == '1')
+	{
+		return divide(B, M).second;
+	}
+	if (P.size() == 1 && P[0] == '0')
+	{
+			return divide("1", M).second;	
+	}
+	pair<string, string> tmpst = divide(P, "2");
+		string pow = ModOfPower(B, tmpst.first, M);
+		//string tmp = divide(P, "2").second;
 		string powxpow = multiply(pow, pow);
-		if (tmp.size() == 1 && tmp[0] != '0')
-
-			return divide(multiply(powxpow, B), M).second;
-		else
+		if (tmpst.second.size() == 1 && tmpst.second[0] != '0'){
+			string powxpowxB = multiply(powxpow, B);
+			return divide(powxpowxB, M).second;
+		}
+		else{
 			return divide(powxpow, M).second;
-	
+		}
 }
 
 
@@ -174,6 +176,33 @@ string BigInteger::add(string str1, string str2) {
 	reverse(result.begin(), result.end());
 	return result;
 }
+
+//string BigInteger::add(string lhs, string rhs) {
+//	int length = max(lhs.size(), rhs.size());
+//	int carry = 0;
+//	int sum_col;  // sum of two digits in the same column
+//	string result;
+//
+//	// pad the shorter string with zeros
+//	while (lhs.size() < length)
+//		lhs.insert(0, "0");
+//
+//	while (rhs.size() < length)
+//		rhs.insert(0, "0");
+//
+//	// build result string from right to left
+//	for (int i = length - 1; i >= 0; i--) {
+//		sum_col = (lhs[i] - '0') + (rhs[i] - '0') + carry;
+//		carry = sum_col / 10;
+//		result.insert(0, to_string(sum_col % 10));
+//	}
+//
+//	if (carry)
+//		result.insert(0, to_string(carry));
+//
+//	// remove leading zeros
+//	return result.erase(0, min(result.find_first_not_of('0'), result.size() - 1));
+//}
 
 
 string BigInteger::multiply(string number1, string number2){
